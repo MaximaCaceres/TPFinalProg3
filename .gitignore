@@ -1,34 +1,100 @@
-node_modules
-HELP.md
+# Directorios de dependencias y compilación
+node_modules/
 target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+build/
 
-### STS ###
-.apt_generated
+# Archivos específicos de Maven
+.mvn/wrapper/maven-wrapper.jar
+# Asegurarse de no ignorar directorios de recursos importantes dentro de target/build/ (aunque generalmente no es necesario)
+# Las líneas !**/src/main/**/target/ y !**/src/test/**/target/ en tu .gitignore actual
+# son un poco inusuales y pueden causar problemas si pretendes ignorar todo el contenido de 'target' y 'build'.
+# Por lo general, se quiere ignorar todo el directorio target/ y build/, ya que son salidas de compilación.
+# Si necesitas mantener algo específico dentro de ellos, es mejor especificarlo explícitamente.
+# Para este propósito, estoy asumiendo que quieres ignorar completamente 'target/' y 'build/'.
+
+# Archivos de IDE
+.idea/               # IntelliJ IDEA
+*.iml                # IntelliJ IDEA
+*.iws                # IntelliJ IDEA
+*.ipr                # IntelliJ IDEA
+.vscode/             # VS Code
+
+# Archivos de IDE (Spring Tool Suite / Eclipse)
+.apt_generated/
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
-.sts4-cache
+.sts4-cache/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
+# Archivos de IDE (NetBeans)
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# Archivos de registro
+*.log
+logs/
+log.txt
+
+# Archivos de configuración de Spring Boot (CRUCIAL para credenciales)
+# Estos son los archivos donde usualmente se configuran las bases de datos.
+# Ignorarlos significa que tus credenciales NO irán al repositorio.
+# En producción, usa variables de entorno o un gestor de secretos.
+application.properties
+application.yml
+application.yaml
+application-dev.properties   # Si tienes un perfil de desarrollo con credenciales
+application-dev.yml
+application-dev.yaml
+application-prod.properties  # Y especialmente el de producción
+application-prod.yml
+application-prod.yaml
+*.env                        # Archivos .env (env vars)
+
+# Archivos de base de datos locales o temporales (si usas H2 u otra DB embebida para desarrollo)
+*.mv.db     # Base de datos H2
+*.trace.db  # Base de datos H2
+data/*.mv.db
+data/*.trace.db
+
+# Archivos de Vaadin Flow
+frontend/generated/ # Código JS/TS generado por Vaadin
+frontend/target/    # Archivos de frontend transpilados y empaquetados
+webpack.generated.js # Configuración de Webpack generada
+package-lock.json    # Si usas npm para dependencias de frontend
+yarn.lock            # Si usas yarn para dependencias de frontend
+node_modules/        # Dependencias de npm/yarn
+.npm/
+
+# Archivos de Docker (si los usas)
+*.env               # Archivos de entorno para Docker Compose, etc.
+.dockerignore       # El propio .dockerignore (opcional, si no quieres versionar tus reglas de .dockerignore)
+volumes/            # Directorios de volúmenes si los montas localmente para bases de datos, etc.
+
+# Archivos de sistema operativo
+.DS_Store            # macOS
+Thumbs.db            # Windows
+Desktop.ini          # Windows
+
+# Archivos temporales o de backup
+*~
+*.bak
+*.swp
+*.swo
+HELP.md              # Archivo de ayuda generado por Spring Initializr (generalmente no se necesita versionar)
+
+# Archivos JAR/WAR compilados
+*.jar
+*.war
+
+# Archivos de seguridad o claves (en caso de que los generes o descargues en el proyecto)
+*.key
+*.pem
+*.p12
+*.jks
+*.crl
+*.csr
